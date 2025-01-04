@@ -6,7 +6,7 @@ using namespace std;
 string solution(string s) {
 //     //방법1
 //     int idx = s.length()/2;
-//     string answer = ((s.length() % 2 == 0) ? s.substr(idx - 1, idx) : string(1, s[idx]));
+//     string answer = ((s.length() % 2 == 0) ? s.substr(idx - 1, 2) : string(1, s[idx]));
     
     // 방법2
     string answer = "";
