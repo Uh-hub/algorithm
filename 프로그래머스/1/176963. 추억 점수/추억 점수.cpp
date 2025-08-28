@@ -1,38 +1,25 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
 vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
-    vector<int> answer;
+    vector<int> answer(photo.size(), 0);
+    unordered_map<string, int> yearningmap;
+    
+    for(int i = 0; i < name.size(); i++)
+    {
+        yearningmap[name[i]] = yearning[i];
+    }
     for(int i = 0; i < photo.size(); i++)
     {
+        int yearning_sum = 0;
         for(int j = 0; j < photo[i].size(); j++)
         {
-            auto it = find(name.begin(), name.end(), photo[i][j]);
-            if(it == name.end())
-            {
-                if(j == 0) 
-                {
-                    answer.push_back(0);
-                }
-            }
-            else
-            {
-                int idx = it - name.begin();
-            if(j == 0)
-            {
-                answer.push_back(yearning[idx]);
-            }
-            else
-            {
-                answer[i] += yearning[idx];
-            }
-            }
-            
-            
+            answer[i] += yearningmap[photo[i][j]];
         }
     }
+
     return answer;
 }
