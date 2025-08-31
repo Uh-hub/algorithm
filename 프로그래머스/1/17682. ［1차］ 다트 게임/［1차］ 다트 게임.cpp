@@ -9,31 +9,26 @@ int solution(string dartResult) {
     
     for(int i = 0; i < dartResult.length(); i++)
     {
-        if('0' <= dartResult[i] && dartResult[i] <= '9')
+        //숫자
+        if(isdigit(dartResult[i]))
         {
-            if(!calc.empty())
+            int num = dartResult[i] - '0';
+            if(i + 1 < dartResult.size() && dartResult[i] == '1' && dartResult[i+1] == '0')
             {
-                if(dartResult[i] == '0' && calc.back() == 1)
-                {
-                    calc.back() = 10;
-                }
-                else{
-                calc.push_back(dartResult[i] - '0');
-                }
+                num = 10;
+                i++;
             }
-            
-            else{
-                calc.push_back(dartResult[i] - '0');
-            }
-
+            calc.push_back(num);
         }
+        //보너스
         else if(dartResult[i] == 'S') calc.back() = pow(calc.back(), 1);
         else if(dartResult[i] == 'D') calc.back() = pow(calc.back(), 2);
         else if(dartResult[i] == 'T') calc.back() = pow(calc.back(), 3);
         
+        //옵션
         else if(dartResult[i] == '*')
         {
-            if(calc[calc.size() - 2]) calc[calc.size() -2] *= 2;
+            if(calc.size() >= 2) calc[calc.size() -2] *= 2;
             calc.back() *= 2;
         }
         else if(dartResult[i] == '#')
