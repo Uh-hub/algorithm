@@ -7,15 +7,34 @@ using namespace std;
 string solution(vector<string> participant, vector<string> completion) {
     string answer = "";
     
-    sort(participant.begin(), participant.end());
-    sort(completion.begin(), completion.end());
-    answer = participant.back();
-    for(int i = 0; i < completion.size(); i++)
+    unordered_map<string, int> comple_num;
+    for(string com : completion)
     {
-        if(participant[i] != completion[i])
+        if(comple_num.find(com) == comple_num.end())
         {
-            answer = participant[i];
+            comple_num[com] = 1;
+        }
+        else
+        {
+            comple_num[com]++;
+        }
+    }
+    
+    for(string par : participant)
+    {
+        if(comple_num.find(par) == comple_num.end())
+        {
+            answer = par;
             break;
+        }
+        else
+        {
+            comple_num[par]--;
+            if(comple_num[par] < 0)
+            {
+                answer = par;
+                break;
+            }
         }
     }
     
